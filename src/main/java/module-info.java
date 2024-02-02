@@ -1,11 +1,11 @@
 module jloda_fx {
-	requires transitive javafx.controls;
-	requires transitive javafx.graphics;
-	requires transitive javafx.fxml;
+	requires javafx.controls;
+	requires javafx.graphics;
+	requires javafx.fxml;
 
-	requires transitive java.desktop;
+	requires java.desktop;
 
-	requires transitive jloda_core;
+	requires jloda_core;
 	requires org.apache.fontbox;
 	requires org.apache.pdfbox;
 
