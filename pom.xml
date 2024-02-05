@@ -28,7 +28,7 @@
     <artifactId>jloda-fx</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
-    <name>JlodaFX</name>
+    <name>jloda-fx</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
