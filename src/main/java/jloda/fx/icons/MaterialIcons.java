@@ -1,21 +1,20 @@
 /*
- * MaterialIcons.java Copyright (C) 2024 Daniel H. Huson
+ * MaterialIcons.java Copyright (C) 2023 Daniel H. Huson
  *
- *  (Some files contain contributions from other authors, who are then mentioned separately.)
+ * (Some files contain contributions from other authors, who are then mentioned separately.)
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package jloda.fx.icons;
@@ -40,6 +39,10 @@ import java.util.TreeMap;
  * Daniel Huson, 7.2023
  */
 public class MaterialIcons {
+	public static double FONT_SIZE = 18.0;
+
+	public static String ADDITIONAL_FORMATTING = "";
+
 	private static MaterialIcons instance;
 
 	public static MaterialIcons getInstance() {
@@ -93,7 +96,8 @@ public class MaterialIcons {
 		var label = new Label(ch);
 		label.getStyleClass().add("icon-text");
 		label.setAlignment(Pos.CENTER);
-		label.setStyle("-fx-font-family: 'Material Icons Outlined'; -fx-font-size: 18; -fx-background-color: transparent;" + (style != null ? style : ""));
+		label.setStyle("-fx-font-family: 'Material Icons Outlined'; -fx-font-size: " + FONT_SIZE + "; -fx-background-color: transparent;"
+					   + (ADDITIONAL_FORMATTING != null ? ADDITIONAL_FORMATTING : "") + (style != null ? style : ""));
 		return label;
 	}
 
