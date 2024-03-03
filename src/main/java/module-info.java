@@ -34,6 +34,7 @@ module jloda_fx {
 	opens jloda.fx.message;
 	opens jloda.fx.icons;
 
+	opens jloda.resources.css;
 
 	exports jloda.fx.geom;
 	exports jloda.fx.workflow;
