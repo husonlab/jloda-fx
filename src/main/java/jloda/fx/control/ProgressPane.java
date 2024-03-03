@@ -33,12 +33,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Tooltip;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
-import jloda.fx.util.ResourceManagerFX;
+import jloda.fx.icons.MaterialIcons;
 
 import static java.lang.Thread.MAX_PRIORITY;
 
@@ -72,17 +71,14 @@ public class ProgressPane extends StackPane {
         ProgressBar progressBar = new ProgressBar();
         progressBar.progressProperty().bind(progressProperty);
         progressBar.setPrefHeight(label.getPrefHeight());
-        Button stopButton = new Button();
+        var stopButton = new Button();
         stopButton.setLayoutX(-10);
-        stopButton.setStyle("-fx-background-color: transparent;");
-        final ImageView imageView = ResourceManagerFX.getIconAsImageView("Stop.png", 16);
-        imageView.setOpacity(0.5);
-        stopButton.setGraphic(imageView);
+        MaterialIcons.setIcon(stopButton, "cancel");
 
         stopButton.setMaxHeight(label.getPrefHeight());
         stopButton.disableProperty().bind(isRunning.not());
         stopButton.setOnAction((e) -> cancelRunnable.run());
-        final HBox hBox = new HBox(label, progressBar, stopButton);
+        var hBox = new HBox(label, progressBar, stopButton);
         hBox.setAlignment(Pos.CENTER);
 
         Tooltip tooltip = new Tooltip();
