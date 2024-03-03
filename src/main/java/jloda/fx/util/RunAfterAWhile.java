@@ -22,6 +22,7 @@ package jloda.fx.util;
 
 import javafx.application.Platform;
 import jloda.util.Pair;
+import jloda.util.ProgramExecutorService;
 
 import java.util.*;
 

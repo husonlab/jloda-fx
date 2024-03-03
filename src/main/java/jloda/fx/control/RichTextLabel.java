@@ -40,7 +40,6 @@ import jloda.fx.shapes.NodeShape;
 import jloda.fx.util.BasicFX;
 import jloda.fx.util.ColorUtilsFX;
 import jloda.fx.util.GeometryUtilsFX;
-import jloda.fx.util.ProgramExecutorService;
 import jloda.fx.window.NotificationManager;
 import jloda.util.*;
 

@@ -23,9 +23,9 @@ package jloda.fx.find;
 import javafx.application.Platform;
 import javafx.beans.property.*;
 import jloda.fx.util.AService;
-import jloda.fx.util.ProgramExecutorService;
 import jloda.fx.window.NotificationManager;
 import jloda.util.CanceledException;
+import jloda.util.ProgramExecutorService;
 import jloda.util.progress.ProgressListener;
 
 import java.util.regex.Matcher;

@@ -33,8 +33,8 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import jloda.fx.util.ProgramExecutorService;
 import jloda.fx.util.ResourceManagerFX;
+import jloda.util.ProgramExecutorService;
 
 import java.time.Duration;
 
