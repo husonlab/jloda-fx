@@ -145,7 +145,7 @@
                 <Font size="10.0"/>
             </font>
         </Button>
-        <ToggleButton fx:id="inSelectionOnlyCheckBox" alignment="CENTER" mnemonicParsing="false"
+        <ToggleButton fx:id="inSelectionOnlyToggleButton" alignment="CENTER" mnemonicParsing="false"
                       text="In selection only">
             <font>
                 <Font size="10.0"/>

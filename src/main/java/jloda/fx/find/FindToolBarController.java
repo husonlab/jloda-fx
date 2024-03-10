@@ -82,7 +82,7 @@ public class FindToolBarController {
     private Button replaceAllButton;
 
     @FXML
-    private ToggleButton inSelectionOnlyCheckBox;
+    private ToggleButton inSelectionOnlyToggleButton;
 
     private static ObservableList<String> findList;
     private ListChangeListener<String> findListChangeListener;
@@ -96,8 +96,6 @@ public class FindToolBarController {
         MaterialIcons.setIcon(nextButton, "navigate_next", "-fx-font-size: 10;", false);
         MaterialIcons.setIcon(allButton, "select_all", "-fx-font-size: 10;", false);
         MaterialIcons.setIcon(findFromFileButton, "file_open", "-fx-font-size: 10;", true);
-        MaterialIcons.setIcon(inSelectionOnlyCheckBox, "select", "-fx-font-size: 10;", true);
-
 
         if (findList == null)
             findList = FXCollections.observableArrayList();
@@ -215,6 +213,6 @@ public class FindToolBarController {
     }
 
     public ToggleButton getInSelectionOnlyCheckBox() {
-        return inSelectionOnlyCheckBox;
+        return inSelectionOnlyToggleButton;
     }
 }
