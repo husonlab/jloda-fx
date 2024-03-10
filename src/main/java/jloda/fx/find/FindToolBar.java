@@ -50,7 +50,6 @@ import jloda.util.StringUtils;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -58,6 +57,8 @@ import java.util.stream.Collectors;
  * Daniel Huson, 1.2018
  */
 public class FindToolBar extends VBox {
+    public static boolean ALLOW_FIND_FROM_FILE = true;
+
     private final FindToolBarController controller;
     private final SearchManager searchManager;
 
@@ -103,7 +104,6 @@ public class FindToolBar extends VBox {
                 getChildren().remove(controller.getReplaceToolBar());
         });
 
-
         searchManager = new SearchManager();
         searchManager.searchTextProperty().bind(controller.getSearchComboBox().getEditor().textProperty());
         searchManager.replaceTextProperty().bind(controller.getReplaceComboBox().getEditor().textProperty());
@@ -139,8 +139,8 @@ public class FindToolBar extends VBox {
         // add entered stuff to list
         controller.getSearchComboBox().valueProperty().addListener((c, o, n) -> {
             if (n != null && !n.isEmpty()) {
-                ArrayList<String> toDelete = new ArrayList<>();
-                for (String item : controller.getSearchComboBox().getItems()) {
+                var toDelete = new ArrayList<String>();
+                for (var item : controller.getSearchComboBox().getItems()) {
                     if (item != null && !item.isEmpty()) {
                         if (n.equals(item))
                             return; // already present
@@ -158,8 +158,8 @@ public class FindToolBar extends VBox {
         // add entered stuff to list
         controller.getReplaceComboBox().valueProperty().addListener((c, o, n) -> {
             if (n != null && !n.isEmpty()) {
-                ArrayList<String> toDelete = new ArrayList<>();
-                for (String item : controller.getReplaceComboBox().getItems()) {
+                var toDelete = new ArrayList<String>();
+                for (var item : controller.getReplaceComboBox().getItems()) {
                     if (item != null && !item.isEmpty()) {
                         if (n.equals(item))
                             return; // already present
@@ -183,7 +183,7 @@ public class FindToolBar extends VBox {
         controller.getCaseSensitiveCheckBox().disableProperty().bind(searchManager.disabledProperty());
 
 
-        BooleanProperty inSearch = new SimpleBooleanProperty(false);
+        var inSearch = new SimpleBooleanProperty(false);
 
         controller.getSearchComboBox().setOnAction(e -> {
             if (!inSearch.get()) {
@@ -238,21 +238,21 @@ public class FindToolBar extends VBox {
             }
         });
 
-        if (owner != null) {
+        if (ALLOW_FIND_FROM_FILE && owner != null) {
             controller.getFindFromFileButton().setOnAction(c -> {
-                File previousDir = new File(ProgramProperties.get("FindFile", ""));
+                var previousDir = new File(ProgramProperties.get("FindFile", ""));
 
-                final FileChooser fileChooser = new FileChooser();
+                var fileChooser = new FileChooser();
                 if (previousDir.isDirectory())
                     fileChooser.setInitialDirectory(previousDir);
                 fileChooser.setTitle("Import search terms - " + ProgramProperties.getProgramVersion());
                 fileChooser.getExtensionFilters().add(TextFileFilter.getInstance());
-                final File selectedFile = fileChooser.showOpenDialog(owner);
+                var selectedFile = fileChooser.showOpenDialog(owner);
 
                 if (selectedFile != null) {
                     ProgramProperties.put("FindFile", selectedFile.getParent());
                     try {
-                        final List<String> terms = FileUtils.getLinesFromFile(selectedFile.getPath());
+                        var terms = FileUtils.getLinesFromFile(selectedFile.getPath());
                         controller.getSearchComboBox().setValue(StringUtils.toString(terms.stream().map(String::trim)
                                 .filter(line -> !line.isEmpty() && !line.startsWith("#")).collect(Collectors.toSet()), "|"));
                         controller.getRegExCheckBox().setSelected(true);
@@ -263,7 +263,6 @@ public class FindToolBar extends VBox {
             });
         } else
             controller.getToolBar().getItems().removeAll(controller.getFindFromFileButton(), controller.getFromFileSeparator());
-
 
         controller.getReplaceButton().disableProperty().bind(searchManager.disabledProperty().or(searchManager.searchTextProperty().isEmpty()));
         controller.getReplaceButton().setOnAction(e -> {
@@ -296,7 +295,7 @@ public class FindToolBar extends VBox {
 
         controller.getCloseButton().setOnAction(e -> setShowFindToolBar(false));
 
-        for (ISearcher another : additional) {
+        for (var another : additional) {
             addSearcher(another);
         }
     }
@@ -363,9 +362,9 @@ public class FindToolBar extends VBox {
      */
     public void addSearcher(ISearcher other) {
         if (searchers.isEmpty()) {
-            final ISearcher searcher = searchManager.getSearcher();
+            var searcher = searchManager.getSearcher();
             // make sure the current searcher is present:
-            final ToggleButton searcherButton = new ToggleButton(searcher.getName());
+            var searcherButton = new ToggleButton(searcher.getName());
             searcherButton.setStyle("-fx-font-size: 10");
             searcherButton.setToggleGroup(searcherButtonsToggleGroup);
             searcherButton.setOnAction(e -> searchManager.setSearcher(searcher));
@@ -376,7 +375,7 @@ public class FindToolBar extends VBox {
         }
 
         if (!searchers.contains(other)) {
-            final ToggleButton searcherButton = new ToggleButton(other.getName());
+            var searcherButton = new ToggleButton(other.getName());
             searcherButton.setStyle("-fx-font-size: 10");
             searcherButton.setToggleGroup(searcherButtonsToggleGroup);
             searcherButton.setOnAction(e -> searchManager.setSearcher(other));

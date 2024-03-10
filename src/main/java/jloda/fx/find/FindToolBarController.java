@@ -27,6 +27,7 @@ import javafx.collections.WeakListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import jloda.fx.icons.MaterialIcons;
 
 public class FindToolBarController {
     @FXML
@@ -54,13 +55,13 @@ public class FindToolBarController {
     private Separator fromFileSeparator;
 
     @FXML
-    private CheckBox caseSensitiveCheckBox;
+    private ToggleButton caseSensitiveCheckBox;
 
     @FXML
-    private CheckBox wholeWordsOnlyCheckBox;
+    private ToggleButton wholeWordsOnlyCheckBox;
 
     @FXML
-    private CheckBox regExCheckBox;
+    private ToggleButton regExCheckBox;
 
     @FXML
     Label label;
@@ -81,7 +82,7 @@ public class FindToolBarController {
     private Button replaceAllButton;
 
     @FXML
-    private CheckBox inSelectionOnlyCheckBox;
+    private ToggleButton inSelectionOnlyCheckBox;
 
     private static ObservableList<String> findList;
     private ListChangeListener<String> findListChangeListener;
@@ -91,6 +92,13 @@ public class FindToolBarController {
 
     @FXML
     private void initialize() {
+        MaterialIcons.setIcon(findButton, "start", "-fx-font-size: 10;", false);
+        MaterialIcons.setIcon(nextButton, "navigate_next", "-fx-font-size: 10;", false);
+        MaterialIcons.setIcon(allButton, "select_all", "-fx-font-size: 10;", false);
+        MaterialIcons.setIcon(findFromFileButton, "file_open", "-fx-font-size: 10;", true);
+        MaterialIcons.setIcon(inSelectionOnlyCheckBox, "select", "-fx-font-size: 10;", true);
+
+
         if (findList == null)
             findList = FXCollections.observableArrayList();
         findListChangeListener = e -> {
@@ -170,15 +178,15 @@ public class FindToolBarController {
         return fromFileSeparator;
     }
 
-    public CheckBox getCaseSensitiveCheckBox() {
+    public ToggleButton getCaseSensitiveCheckBox() {
         return caseSensitiveCheckBox;
     }
 
-    public CheckBox getWholeWordsOnlyCheckBox() {
+    public ToggleButton getWholeWordsOnlyCheckBox() {
         return wholeWordsOnlyCheckBox;
     }
 
-    public CheckBox getRegExCheckBox() {
+    public ToggleButton getRegExCheckBox() {
         return regExCheckBox;
     }
 
@@ -206,7 +214,7 @@ public class FindToolBarController {
         return replaceAllButton;
     }
 
-    public CheckBox getInSelectionOnlyCheckBox() {
+    public ToggleButton getInSelectionOnlyCheckBox() {
         return inSelectionOnlyCheckBox;
     }
 }
