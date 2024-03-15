@@ -29,13 +29,12 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.*;
 import javafx.util.Duration;
-import jloda.fx.util.ResourceManagerFX;
+import jloda.fx.icons.MaterialIcons;
 import jloda.util.ProgramProperties;
 
 import java.text.SimpleDateFormat;
@@ -238,12 +237,11 @@ public class NotificationManager {
 				}
 
 				{
-					ImageView icon = switch (mode) {
-						case confirmation -> ResourceManagerFX.getIconAsImageView("dialog/dialog-confirmation.png", 32);
-						case warning -> ResourceManagerFX.getIconAsImageView("dialog/dialog-warning.png", 32);
-						case information -> ResourceManagerFX.getIconAsImageView("dialog/dialog-information.png", 32);
-						case error -> ResourceManagerFX.getIconAsImageView("dialog/dialog-error.png", 32);
-						default -> throw new IllegalArgumentException();
+					var icon = switch (mode) {
+						case confirmation -> MaterialIcons.graphic("task_alt", "-fx-font-size:  32;");
+						case warning -> MaterialIcons.graphic("warning", "-fx-font-size:  32;");
+						case information -> MaterialIcons.graphic("info", "-fx-font-size:  32;");
+						case error -> MaterialIcons.graphic("error", "-fx-font-size:  32;");
 					};
 					mainPanel.setPadding(new Insets(1, 5, 1, 5));
 					mainPanel.setLeft(new StackPane(icon));
