@@ -105,8 +105,7 @@ public class BasicFX {
 			node = queue.pop();
 			if (clazz.isAssignableFrom(node.getClass()))
 				all.add((T) node);
-			if (node instanceof Parent) {
-				var parent = (Parent) node;
+			if (node instanceof Parent parent) {
 				queue.addAll(parent.getChildrenUnmodifiable());
 			}
 		}
@@ -123,8 +122,7 @@ public class BasicFX {
 			node = queue.pop();
 			if (clazz.isAssignableFrom(node.getClass()))
 				return (T) node;
-			if (node instanceof Parent) {
-				var parent = (Parent) node;
+			if (node instanceof Parent parent) {
 				queue.addAll(parent.getChildrenUnmodifiable());
 			}
 		}
@@ -161,8 +159,7 @@ public class BasicFX {
 		while (!list.isEmpty()) {
 			final var node = list.remove();
 			all.add(node);
-			if (node instanceof Parent) {
-				var parent = (Parent) node;
+			if (node instanceof Parent parent) {
 				list.addAll(parent.getChildrenUnmodifiable());
 			}
 		}
@@ -177,8 +174,7 @@ public class BasicFX {
 			var node = queue.pop();
 			if (condition.apply(node))
 				all.add(node);
-			if (node instanceof Parent) {
-				var parent = (Parent) node;
+			if (node instanceof Parent parent) {
 				queue.addAll(parent.getChildrenUnmodifiable());
 			}
 		}
@@ -240,12 +236,10 @@ public class BasicFX {
 		arc.setRadiusY(changeY.apply(arc.getRadiusY()));
 	}
 
-
 	public static void changeTranslate(Node node, Function<Double, Double> changeX, Function<Double, Double> changeY) {
 		node.setTranslateX(changeX.apply(node.getTranslateX()));
 		node.setTranslateY(changeY.apply(node.getTranslateY()));
 	}
-
 
 	public static void centerAndShow(Stage parent, Stage child) {
 		child.setX(parent.getX() + 0.5 * parent.getWidth());
@@ -434,8 +428,7 @@ public class BasicFX {
 		while (!queue.isEmpty()) {
 			node = queue.pop();
 			apply.accept(node);
-			if (node instanceof Parent) {
-				var parent = (Parent) node;
+			if (node instanceof Parent parent) {
 				queue.addAll(parent.getChildrenUnmodifiable());
 			}
 		}
@@ -463,15 +456,15 @@ public class BasicFX {
 
 		var list = List.of(states);
 
-		button.textProperty().bind(stateProperty);
+		stateProperty.addListener((v, o, n) -> {
+			Platform.runLater(() -> button.setText(n));
+		});
 
 		button.setOnAction(e -> {
 			var index = button.getText() == null ? 0 : list.indexOf(button.getText()) + 1;
 			if (index == 0 || index >= list.size()) {
-				Platform.runLater(() -> {
 					button.setSelected(false);
-					stateProperty.set(list.get(0));
-				});
+				stateProperty.set(list.get(0));
 			} else {
 				button.setSelected(true);
 				stateProperty.set(list.get(index));
@@ -491,8 +484,7 @@ public class BasicFX {
 			if (accept.apply(menu))
 				callback.accept(menu);
 			for (var item : menu.getItems()) {
-				if (item instanceof Menu) {
-					var other = (Menu) item;
+				if (item instanceof Menu other) {
 					queue.add(other);
 				}
 			}
