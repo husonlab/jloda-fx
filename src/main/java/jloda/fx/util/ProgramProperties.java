@@ -79,60 +79,87 @@ public class ProgramProperties extends jloda.util.ProgramProperties {
 	}
 
 	public static void track(String label, ObjectProperty<Color> property, Color defaultValue) {
-		if (!property.isBound()) {
-			property.set(get(label, defaultValue));
+		try {
+			if (!property.isBound()) {
+				property.set(get(label, defaultValue));
+			}
+			property.addListener((v, o, n) -> put(label, property.get()));
+		} catch (Exception ignore) {
 		}
-		property.addListener((v, o, n) -> put(label, property.get()));
 	}
 
 
 	public static void track(IntegerProperty property, Integer defaultValue) {
-		var label = (property.getBean() != null ? property.getBean().getClass().getName() : "") + property.getName();
-		track(label, property, defaultValue);
+		try {
+			var label = (property.getBean() != null ? property.getBean().getClass().getName() : "") + property.getName();
+			track(label, property, defaultValue);
+		} catch (Exception ignore) {
+		}
 	}
 
 	public static void track(String label, IntegerProperty property, Integer defaultValue) {
-		if (!property.isBound()) {
-			property.set(get(label, defaultValue));
+		try {
+			if (!property.isBound()) {
+				property.set(get(label, defaultValue));
+			}
+			property.addListener((v, o, n) -> put(label, property.get()));
+		} catch (Exception ignore) {
 		}
-		property.addListener((v, o, n) -> put(label, property.get()));
 	}
 
 
 	public static void track(DoubleProperty property, Double defaultValue) {
-		var label = (property.getBean() != null ? property.getBean().getClass().getName() : "") + property.getName();
-		track(label, property, defaultValue);
+		try {
+			var label = (property.getBean() != null ? property.getBean().getClass().getName() : "") + property.getName();
+			track(label, property, defaultValue);
+		} catch (Exception ignore) {
+		}
 	}
 
 	public static void track(String label, DoubleProperty property, Double defaultValue) {
-		if (!property.isBound()) {
-			property.set(get(label, defaultValue));
+		try {
+			if (!property.isBound()) {
+				property.set(get(label, defaultValue));
+			}
+			property.addListener((v, o, n) -> put(label, property.get()));
+		} catch (Exception ignore) {
 		}
-		property.addListener((v, o, n) -> put(label, property.get()));
 	}
 
 	public static void track(BooleanProperty property, Boolean defaultValue) {
-		var label = (property.getBean() != null ? property.getBean().getClass().getName() : "") + property.getName();
-		track(label, property, defaultValue);
+		try {
+			var label = (property.getBean() != null ? property.getBean().getClass().getName() : "") + property.getName();
+			track(label, property, defaultValue);
+		} catch (Exception ignore) {
+		}
 	}
 
 	public static void track(String label, BooleanProperty property, Boolean defaultValue) {
-		if (!property.isBound()) {
-			property.set(get(label, defaultValue));
+		try {
+			if (!property.isBound()) {
+				property.set(get(label, defaultValue));
+			}
+			property.addListener((v, o, n) -> put(label, property.get()));
+		} catch (Exception ignore) {
 		}
-		property.addListener((v, o, n) -> put(label, property.get()));
 	}
 
 	public static void track(StringProperty property, String defaultValue) {
-		var label = (property.getBean() != null ? property.getBean().getClass().getName() : "") + property.getName();
-		track(label, property, defaultValue);
+		try {
+			var label = (property.getBean() != null ? property.getBean().getClass().getName() : "") + property.getName();
+			track(label, property, defaultValue);
+		} catch (Exception ignore) {
+		}
 	}
 
 	public static void track(String label, StringProperty property, String defaultValue) {
-		if (!property.isBound()) {
-			property.set(get(label, defaultValue));
+		try {
+			if (!property.isBound()) {
+				property.set(get(label, defaultValue));
+			}
+			property.addListener((v, o, n) -> put(label, property.get()));
+		} catch (Exception ignore) {
 		}
-		property.addListener((v, o, n) -> put(label, property.get()));
 	}
 
 	public static <T> void track(ObjectProperty<T> property, Function<String, T> valueOf, T defaultValue) {
@@ -140,10 +167,13 @@ public class ProgramProperties extends jloda.util.ProgramProperties {
 	}
 
 	public static <T> void track(String label, ObjectProperty<T> property, Function<String, T> valueOf, T defaultValue) {
-		if (!property.isBound()) {
-			property.set(valueOf.apply(get(label, defaultValue.toString())));
+		try {
+			if (!property.isBound()) {
+				property.set(valueOf.apply(get(label, defaultValue.toString())));
+			}
+			property.addListener((v, o, n) -> put(label, property.get() != null ? property.get().toString() : ""));
+		} catch (Exception ignore) {
 		}
-		property.addListener((v, o, n) -> put(label, property.get() != null ? property.get().toString() : ""));
 	}
 
 }
