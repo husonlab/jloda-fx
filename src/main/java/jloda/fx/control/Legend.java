@@ -37,9 +37,13 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Rectangle;
 import jloda.fx.util.ColorSchemeManager;
+import jloda.fx.util.FuzzyBoolean;
+
+import static jloda.fx.util.FuzzyBoolean.False;
+import static jloda.fx.util.FuzzyBoolean.True;
 
 /**
- * simple color scheme legend
+ * simple color scheme legend and scale indicator
  * Daniel Huson, 3.2022
  */
 public class Legend extends StackPane {
@@ -66,6 +70,8 @@ public class Legend extends StackPane {
 	private final DoubleProperty unitRadius = new SimpleDoubleProperty(this, "unitRadius", 0);
 	private final DoubleProperty scale = new SimpleDoubleProperty(this, "scaleProperty", 1.0);
 
+	private final ObjectProperty<FuzzyBoolean> show = new SimpleObjectProperty<>(this, "show", True);
+
 	private final StringProperty colorSchemeName = new SimpleStringProperty();
 	private final ObservableList<String> labels;
 	private final ObservableSet<String> active = FXCollections.observableSet();
@@ -76,6 +82,7 @@ public class Legend extends StackPane {
 		setColorSchemeName(colorSchemeName);
 		this.labels.addListener((InvalidationListener) e -> update());
 		this.active.addListener((InvalidationListener) e -> update());
+		this.show.addListener(e -> update());
 		colorSchemeNameProperty().addListener(e -> update());
 		this.unitRadius.addListener(e -> update());
 		scale.addListener(e -> update());
@@ -94,16 +101,18 @@ public class Legend extends StackPane {
 	}
 
 	private void update() {
+		setVisible(getShow() != False);
+
 		pane.getChildren().clear();
 
 		if (getTitle() != null && !getTitle().isBlank()) {
 			pane.getChildren().add(new HBox(new Label(getTitle())));
 		}
-		if (getScalingType() != ScalingType.none && getUnitRadius() > 0) {
+		if (getShow() != False && getScalingType() != ScalingType.none && getUnitRadius() > 0) {
 			pane.getChildren().add(createCircleScaleBox(getScalingType(), getUnitRadius(), getScale()));
 		}
 
-		if (!getColorSchemeName().isBlank()) {
+		if (getShow() == True && !getColorSchemeName().isBlank()) {
 			var colorScheme = ColorSchemeManager.getInstance().getColorScheme(getColorSchemeName());
 			for (var i = 0; i < labels.size(); i++) {
 				if (active.contains(labels.get(i))) {
@@ -253,5 +262,16 @@ public class Legend extends StackPane {
 		return pane;
 	}
 
+	public FuzzyBoolean getShow() {
+		return show.get();
+	}
+
+	public ObjectProperty<FuzzyBoolean> showProperty() {
+		return show;
+	}
+
+	public void setShow(FuzzyBoolean show) {
+		this.show.set(show);
+	}
 }
 
