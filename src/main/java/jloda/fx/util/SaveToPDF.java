@@ -283,7 +283,7 @@ public class SaveToPDF {
 							contents.setNonStrokingColor(pdfColor(text.getFill()));
 							var fontHeight = (float) computeFinalHeight(root, text, text.getFont().getSize());
 							setFont(contents, text, fontHeight);
-							contents.showText(text.getText());
+							contents.showText(useOnlyUsualCharacters(text.getText()));
 							contents.endText();
 						}
 					} else if (node instanceof ImageView imageView) {
@@ -321,6 +321,19 @@ public class SaveToPDF {
 		contents.close();
 		document.save(file);
 		document.close();
+	}
+
+	private static String useOnlyUsualCharacters(String text) {
+		var buf = new StringBuilder();
+		for (var i = 0; i < text.length(); i++) {
+			var c = text.charAt(i);
+			var isUsualCharacter = (c >= 32 && c <= 126) || (c >= 161 && c <= 255) || (c >= 256 && c <= 383) || (c >= 8192 && c <= 8303) || (c >= 8592 && c <= 8683);
+			if (isUsualCharacter)
+				buf.append(c);
+			else
+				buf.append("_");
+		}
+		return buf.toString();
 	}
 
 	private static void setFont(PDPageContentStream contentStream, Text text, float size) throws IOException {
